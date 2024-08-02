@@ -7,7 +7,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['id', 'telegram_id', 'tg_username', 'nickname', 'points', 'referral_code', 'referrer', 'avatar']
+        fields = ['id', 'telegram_id', 'tg_username', 'nickname', 'points', 'referral_code', 'referrer', 'avatar', 'referrals']
 
     def get_referrals(self, obj):
         return UserSerializer(obj.referrals.all(), many=True).data
