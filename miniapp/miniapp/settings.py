@@ -97,7 +97,7 @@ DATABASES = {
         'NAME': 'tilted',
         'HOST': 'localhost',
         'USER': 'root',
-        #'PASSWORD': 'your_password',
+        'PASSWORD': 'your_password',
     }
 }
 
