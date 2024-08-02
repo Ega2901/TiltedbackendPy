@@ -1,0 +1,11 @@
+[2024-08-02 14:03:33 +0000] [291100] [INFO] Starting gunicorn 22.0.0
+[2024-08-02 14:03:33 +0000] [291100] [INFO] Listening at: http://0.0.0.0:8000 (291100)
+[2024-08-02 14:03:33 +0000] [291100] [INFO] Using worker: sync
+[2024-08-02 14:03:33 +0000] [291145] [INFO] Booting worker with pid: 291145
+[2024-08-02 14:03:33 +0000] [291146] [INFO] Booting worker with pid: 291146
+[2024-08-02 14:03:33 +0000] [291147] [INFO] Booting worker with pid: 291147
+[2024-08-02 14:21:54 +0000] [291100] [INFO] Handling signal: term
+[2024-08-02 14:21:54 +0000] [291146] [INFO] Worker exiting (pid: 291146)
+[2024-08-02 14:21:54 +0000] [291145] [INFO] Worker exiting (pid: 291145)
+[2024-08-02 14:21:54 +0000] [291147] [INFO] Worker exiting (pid: 291147)
+[2024-08-02 14:21:54 +0000] [291100] [INFO] Shutting down: Master
