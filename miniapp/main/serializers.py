@@ -1,24 +1,18 @@
+# file: myapp/serializers.py
 from rest_framework import serializers
-from .models import User, GlobalTask, UserTaskStatus,  Referral
+from .models import User, Task
 
 class UserSerializer(serializers.ModelSerializer):
+    referrals = serializers.SerializerMethodField()
+
     class Meta:
         model = User
-        fields = ['id', 'telegram_id', 'username', 'nickname', 'points', 'avatar', 'referral_code']
+        fields = ['id', 'telegram_id', 'tg_username', 'nickname', 'points', 'referral_code', 'referrer', 'avatar', 'referrals']
 
-class GlobalTaskSerializer(serializers.ModelSerializer):
+    def get_referrals(self, obj):
+        return UserSerializer(obj.referrals.all(), many=True).data
+
+class TaskSerializer(serializers.ModelSerializer):
     class Meta:
-        model = GlobalTask
-        fields = ['id', 'task_name', 'task_description', 'task_image', 'points', 'task_url']
-
-class UserTaskStatusSerializer(serializers.ModelSerializer):
-    task = GlobalTaskSerializer()
-
-    class Meta:
-        model = UserTaskStatus
-        fields = ['id', 'task', 'completed']
-
-class ReferralSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Referral
-        fields = ['id', 'user', 'referred_user']
+        model = Task
+        fields = ['id', 'name', 'description', 'image', 'completed', 'user', 'task_url', 'points']

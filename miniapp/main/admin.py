@@ -1,18 +1,13 @@
+# file: myapp/admin.py
 from django.contrib import admin
-from .models import User, GlobalTask, Referral
+from .models import User, Task
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
-    list_display = ('id', 'telegram_id', 'username', 'nickname', 'points', 'referral_code')
-    search_fields = ('telegram_id', 'username', 'nickname')
-    list_filter = ('points',)
+    list_display = ('telegram_id', 'tg_username', 'nickname', 'points', 'referral_code', 'referrer')
+    search_fields = ('telegram_id', 'tg_username', 'nickname')
 
-@admin.register(GlobalTask)
+@admin.register(Task)
 class TaskAdmin(admin.ModelAdmin):
-    list_display = ('id', 'task_name', 'task_image', 'points')
-    search_fields = ('task_name', 'task_description')
-
-@admin.register(Referral)
-class ReferralAdmin(admin.ModelAdmin):
-    list_display = ('id', 'user', 'referred_user')
-    search_fields = ('user__username', 'referred_user__username')
+    list_display = ('name', 'description', 'completed', 'user', 'task_url', 'points')
+    search_fields = ('name', 'user__nickname')

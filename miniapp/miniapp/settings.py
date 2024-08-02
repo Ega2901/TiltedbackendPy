@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-qo_bo*+grc=nvmiv363@2e-hx(*w8&^pk1)(4xpr-8er1qjft9
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['tiltedxyz.ru', 'www.tiltedxyz.ru']
+ALLOWED_HOSTS = ['tiltedxyz.ru', 'www.tiltedxyz.ru', '127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -97,7 +97,7 @@ DATABASES = {
         'NAME': 'tilted',
         'HOST': 'localhost',
         'USER': 'root',
-        'PASSWORD': 'your_password',
+        #'PASSWORD': 'your_password',
     }
 }
 
@@ -146,8 +146,6 @@ MEDIA_URL = '/media/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-AUTH_USER_MODEL = 'main.User'
 
 LOGGING = {
     'version': 1,
