@@ -4,10 +4,17 @@ from rest_framework.response import Response
 from rest_framework.decorators import action
 from .models import User, Task
 from .serializers import UserSerializer, TaskSerializer
+from rest_framework.permissions import IsAuthenticated
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework import viewsets
+from .models import User
+from .serializers import UserSerializer
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [JWTAuthentication]
 
     def create(self, request, *args, **kwargs):
         ref_code = request.data.get('referral_code')
