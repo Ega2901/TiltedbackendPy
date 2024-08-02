@@ -176,3 +176,12 @@ LOGGING = {
         },
     },
 }
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
+# Настройки заголовков безопасности
+SECURE_HSTS_SECONDS = 31536000  # Включение HSTS на 1 год
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
+X_FRAME_OPTIONS = 'DENY'
