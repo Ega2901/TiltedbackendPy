@@ -1,32 +1,42 @@
-# schemas.py
 from pydantic import BaseModel
-from typing import Optional, List
+from typing import List
 
-class UserBase(BaseModel):
-    telegram_id: str
-    tg_username: Optional[str] = None
-    nickname: Optional[str] = None
-    points: Optional[float] = 0.00
 
-class UserCreate(UserBase):
-    referral_code: Optional[str] = None
-    avatar: Optional[bytes] = None
+class UserCreate(BaseModel):
+    telegram_id: int
+    username: str
+    referral_code: str = None
 
-class UserOut(UserBase):
-    id: int
+
+class UserOut(BaseModel):
+    telegram_id: int
+    username: str
+    points: int
+    avatar: str = None
 
     class Config:
         orm_mode = True
 
-class TaskBase(BaseModel):
+
+class TaskCreate(BaseModel):
+    task_name: str
+    task_description: str
+    task_image: str = None
+    task_url: str = None
+    task_points: int
+
+
+class TaskOut(BaseModel):
+    id: int
     task_name: str
     task_description: str
     task_image: str
-    completed: bool
-
-class TaskOut(TaskBase):
-    id: int
-    user_id: int
+    task_url: str
+    task_points: int
 
     class Config:
         orm_mode = True
+
+
+class TaskComplete(BaseModel):
+    user_id: int
