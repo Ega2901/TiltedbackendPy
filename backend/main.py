@@ -17,7 +17,7 @@ Base.metadata.create_all(bind=engine)
 # Разрешение CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Измените на конкретные домены в продакшене
+    allow_origins=["tiltedxyz.ru", "www.tiltedxyz.ru"],  # Измените на конкретные домены в продакшене
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
