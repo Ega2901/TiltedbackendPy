@@ -8,7 +8,7 @@ from models import Base, User, Task
 from schemas import UserCreate, UserOut, TaskOut, TaskCreate, TaskComplete
 from database import engine, get_db
 import crud
-
+import os
 app = FastAPI()
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -36,7 +36,7 @@ def get_user_by_telegram_id(telegram_id: int, db: Session = Depends(get_db)):
     return user
 
 @app.post("/register/", response_model=UserOut)
-def register_user(user: UserCreate, db: Session = Depends(get_db), avatar: UploadFile = None):
+def register_user(user: UserCreate = Depends(), db: Session = Depends(get_db), avatar: UploadFile = None):
     logger.info(f"Registering user: {user}")
     db_user = crud.get_user_by_telegram_id(db, user.telegram_id)
     if db_user:
