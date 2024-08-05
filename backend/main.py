@@ -9,6 +9,7 @@ from schemas import UserCreate, UserOut, TaskOut, TaskCreate, TaskComplete
 from database import engine, get_db
 import crud
 import os
+from pydantic import BaseModel
 app = FastAPI()
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -35,22 +36,22 @@ def get_user_by_telegram_id(telegram_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="User not found")
     return user
 
+class UserCreate(BaseModel):
+    telegram_id: int
+    username: str
+    nickname: str
+    avatar: str = None
+
 @app.post("/register/", response_model=UserOut)
-def register_user(user: UserCreate = Depends(), db: Session = Depends(get_db), avatar: UploadFile = None):
-    logger.info(f"Registering user: {user}")
+def register_user(user: UserCreate, db: Session = Depends(get_db)):
     db_user = crud.get_user_by_telegram_id(db, user.telegram_id)
     if db_user:
-        logger.warning(f"User already registered: {user.telegram_id}")
         raise HTTPException(status_code=400, detail="User already registered")
     avatar_path = None
-    if avatar:
-        avatar_dir = "avatars"
-        os.makedirs(avatar_dir, exist_ok=True)
-        avatar_path = f"{avatar_dir}/{user.telegram_id}_{avatar.filename}"
-        with open(avatar_path, "wb") as buffer:
-            shutil.copyfileobj(avatar.file, buffer)
+    if user.avatar:
+        avatar_path = f"avatars/{user.telegram_id}_{user.avatar}"
+        # сохраняем аватар
     new_user = crud.create_user(db=db, user=user, avatar_path=avatar_path)
-    logger.info(f"User registered successfully: {new_user}")
     return new_user
 
 @app.patch("/users/{telegram_id}/start_farming/")
